@@ -8,13 +8,13 @@ from email.parser import Parser
 def send_mail(result):
     """Sends email with most recent search results"""
 
-    gmail_user = 'dslimmers@gmail.com'  
-    gmail_password = 'greettruus22'
+    gmail_user = 'from.com'  
+    gmail_password = 'test12345'
     body = MIMEText(create_mail_body(result), "html")
 
     msg = MIMEMultipart("alternative")
     msg["From"] = gmail_user  
-    msg["To"] = 'dennisslimmers@live.nl'
+    msg["To"] = 'to@gmail.com'
     msg["Subject"] = 'HuurwoningenScraper found a new hiring oppertunity for you!'  
     msg.attach(body)
 
