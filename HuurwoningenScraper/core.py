@@ -3,7 +3,7 @@ from HuurwoningenScraper.config import config
 from HuurwoningenScraper.web import init
 
 def main():
-    """Main entry point for the pararius scraper.
+    """Main entry point for the Huurwoningen.nl scraper.
 
        Generaly used for fetching the configuration data 
        and initialising / starting the scraping process.

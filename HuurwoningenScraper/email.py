@@ -26,7 +26,7 @@ def send_mail(result):
         server.close()
 
         # Email successfully send, print a notification
-        print("New Hiring oppertunity found! An email was send to: " + msg["To"])
+        print("New hiring oppertunity found! An email was send to: " + msg["To"])
     except:  
         e = sys.exc_info()[0]
         print(e)
