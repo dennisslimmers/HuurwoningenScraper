@@ -1,5 +1,7 @@
 import sys, os, requests
+import smtplib
 from bs4 import BeautifulSoup
+from HuurwoningenScraper.email import send_mail
 
 def init(config):
     """Make the web request and parse the response"""
@@ -12,19 +14,17 @@ def init(config):
         print(e)
         exit(0)
 
-    # Use BeatifulSoup to parse the HTML response
-    soup = BeautifulSoup(response.text, "html.parser")
+    if response.status_code == 200:
+        # Use BeatifulSoup to parse the HTML response
+        soup = BeautifulSoup(response.text, "html.parser")
 
-    # Huurwoningen.nl made it pretty easy to fetch items from the their search results.
-    # The id 'first-listing' gets passed to the first item, so that's what we use to query the response!
-    result = SearchResult(soup.find("section", attrs={"id": "first-listing"}))
+        # Huurwoningen.nl made it pretty easy to fetch items from the their search results.
+        # The id 'first-listing' gets passed to the first item, so that's what we use to query the response!
+        result = SearchResult(soup.find("section", attrs={"id": "first-listing"}))
 
-    print(result.rent)
-    print(result.dwelling)
-    print(result.location)
-    print(result.street)
-    print(result.subtitle)
-    print(result.description)
+        # TODO: Check if there is a backlog for the chosen min/max values, and compare the last registered result with the scraper result
+        send_mail(result)
+
 
 
 class SearchResult:
