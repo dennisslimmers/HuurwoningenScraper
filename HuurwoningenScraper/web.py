@@ -26,7 +26,6 @@ def init(config):
         send_mail(result)
 
 
-
 class SearchResult:
     """Class that represents a Huurwoningen.nl search result (rent, location, link etc)"""
 
@@ -49,7 +48,3 @@ class SearchResult:
     def get_result_link(self, soup):
         pass
 
-
-
-
-    

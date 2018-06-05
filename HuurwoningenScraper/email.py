@@ -8,13 +8,13 @@ from email.parser import Parser
 def send_mail(result):
     """Sends email with most recent search results"""
 
-    gmail_user = 'from@gmail.com'  
-    gmail_password = 'test12345'
-    body = MIMEText(create_mail_body(result), "plain")
+    gmail_user = 'dslimmers@gmail.com'  
+    gmail_password = 'greettruus22'
+    body = MIMEText(create_mail_body(result), "html")
 
     msg = MIMEMultipart("alternative")
     msg["From"] = gmail_user  
-    msg["To"] = 'to@gmail.nl'
+    msg["To"] = 'dennisslimmers@live.nl'
     msg["Subject"] = 'HuurwoningenScraper found a new hiring oppertunity for you!'  
     msg.attach(body)
 
@@ -34,14 +34,11 @@ def send_mail(result):
 
 
 def create_mail_body(result):
-    return f"""\
-Location: {result.location}
-Street: {result.street}
-Dwelling: {result.dwelling}
-Rent: {result.rent}
+    tableheader = open("./Templates/mail.tableheader.html", "r")
+    tablefooter = open("./Templates/mail.tablefooter.html", "r")
+    searchresult = open("./Templates/mail.searchresult.html", "r")
 
-{result.subtitle.strip()}
+    searchresult = searchresult.read() % (result.location, result.street, result.dwelling, result.rent, result.subtitle)
 
-{result.description}
-""" 
+    return tableheader.read() + searchresult +  tablefooter.read()
         

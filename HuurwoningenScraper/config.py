@@ -4,7 +4,7 @@ class config:
     """Configuration class
 
        Used to determine the different variables for the 
-       pararius scraping process, for example the minimal hiring price.
+       Huurwoningen scraping process, for example the minimal hiring price.
     """
 
     min_price = 0
@@ -81,6 +81,6 @@ class config:
 
 
     def get_huurwoningen_url(self, config):
-        """Returns the correct huurwoningen.nl url based on the configuration values"""
+        """Returns the correct Huurwoningen.nl url based on the configuration values"""
 
         return f"https://www.huurwoningen.nl/in/{self.location}/?min_price={self.min_price}&max_price={self.max_price}"
