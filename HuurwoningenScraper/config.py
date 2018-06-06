@@ -31,14 +31,14 @@ class config:
                     # First, let's check if the provided argument is a general argument (-h & -v)
                     self.map_general_argument(arg)
 
-                    # Then we check if the argument is provided to change the scrapers functionality (-min, -max, -w)
+                    # Then we check if the argument is provided to change the scrapers functionality (-min, -max, , -l, -w)
                     self.map_argument(arg, argv, i)
 
 
     def is_valid_argument(self, arg):
         """Checks if the given argument is a valid argument"""
 
-        valid_args = ["-min", "-max", "-w", "-h", "-v"]
+        valid_args = ["-min", "-max", "-w", "-h", "-v", "-l"]
 
         if arg not in valid_args:
             return False
@@ -78,6 +78,15 @@ class config:
                 exit()
             
             self.max_price = max
+        elif arg == "-l":
+            try:
+                location = str(argv[index + 1])
+            except:
+                e = sys.exc_info()[0]
+                print(e)
+                exit()
+            
+            self.location = location
 
 
     def get_huurwoningen_url(self, config):
