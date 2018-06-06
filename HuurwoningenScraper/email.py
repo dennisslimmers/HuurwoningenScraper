@@ -8,7 +8,7 @@ from email.parser import Parser
 def send_mail(result):
     """Sends email with most recent search results"""
 
-    gmail_user = 'from.com'  
+    gmail_user = 'from@gmail.com'  
     gmail_password = 'test12345'
     body = MIMEText(create_mail_body(result), "html")
 
@@ -38,7 +38,7 @@ def create_mail_body(result):
     tablefooter = open("./Templates/mail.tablefooter.html", "r")
     searchresult = open("./Templates/mail.searchresult.html", "r")
 
-    searchresult = searchresult.read() % (result.location, result.street, result.dwelling, result.rent, result.subtitle)
+    searchresult = searchresult.read() % (result.location, result.street, result.dwelling, result.rent, result.subtitle, result.description)
 
     return tableheader.read() + searchresult +  tablefooter.read()
         
