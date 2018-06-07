@@ -18,6 +18,8 @@ class config:
 
 
     def build_default_settings(self):
+        """Read settings.ini file and fill default config values"""
+        
         config = configparser.ConfigParser()
         if os.path.exists("./settings.ini"):
             ini = "./settings.ini"
