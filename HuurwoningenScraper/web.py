@@ -1,7 +1,7 @@
 import sys, os, requests
 import smtplib
 from bs4 import BeautifulSoup
-from HuurwoningenScraper.email import send_mail
+from HuurwoningenScraper.smtp import send_mail
 
 def init(config):
     """Make the web request and parse the response"""
