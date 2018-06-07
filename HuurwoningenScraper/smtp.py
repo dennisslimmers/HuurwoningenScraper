@@ -5,17 +5,17 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.parser import Parser
 
-def send_mail(result, config):
+def send_mail(results, config):
     """Sends email with most recent search results"""
 
     gmail_user = config.sender  
     gmail_password = config.smtp_pw
-    body = MIMEText(create_mail_body(result), "html")
+    body = MIMEText(create_mail_body(results), "html")
 
     msg = MIMEMultipart("alternative")
     msg["From"] = gmail_user  
     msg["To"] = config.reciever
-    msg["Subject"] = 'HuurwoningenScraper found a new hiring oppertunity for you!'  
+    msg["Subject"] = 'HuurwoningenScraper found new hiring oppertunities for you!'  
     msg.attach(body)
 
     try:  
@@ -26,19 +26,23 @@ def send_mail(result, config):
         server.close()
 
         # Email successfully send, print a notification
-        print("New hiring oppertunity found! An email was send to: " + msg["To"])
+        print("New hiring oppertunities found! An email was send to: " + msg["To"])
     except:  
         e = sys.exc_info()[0]
         print(e)
         exit()
 
 
-def create_mail_body(result):
+def create_mail_body(results):
     tableheader = open("./Templates/mail.tableheader.html", "r")
     tablefooter = open("./Templates/mail.tablefooter.html", "r")
-    searchresult = open("./Templates/mail.searchresult.html", "r")
+    searchresults = ""
 
-    searchresult = searchresult.read() % (result.location, result.street, result.dwelling, result.rent, result.subtitle, result.description)
+    for i in range (0, len(results)):
+        result = results[i]
+        
+        template = open("./Templates/mail.searchresult.html", "r")
+        searchresults += template.read() % (result.location, result.street, result.dwelling, result.rent, result.subtitle, result.description)
 
-    return tableheader.read() + searchresult +  tablefooter.read()
+    return tableheader.read() + searchresults +  tablefooter.read()
         

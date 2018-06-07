@@ -15,15 +15,28 @@ def init(config):
         exit(0)
 
     if response.status_code == 200:
+        print(url + " => Request succeeded: returned " + str(response.status_code))
+
         # Use BeatifulSoup to parse the HTML response
         soup = BeautifulSoup(response.text, "html.parser")
 
+        results = []
+
         # Huurwoningen.nl made it pretty easy to fetch items from the their search results.
-        # The id 'first-listing' gets passed to the first item, so that's what we use to query the response!
-        result = SearchResult(soup.find("section", attrs={"id": "first-listing"}))
+        # The class 'listing' gets passed to every item, so that's what we should use to query the response!
+        soup_results = soup.findAll("section", attrs={"class": "listing"})
+        
+        for i in range (0, len(soup_results)):
+            if i == 5: # TODO: add a MaxResults ini variable? 
+               break
+
+            results.append(SearchResult(soup_results[i]))
 
         # TODO: Check if there is a backlog for the chosen min/max values, and compare the last registered result with the scraper result
-        send_mail(result, config)
+        send_mail(results, config)
+    else:
+        print(url + " => Request failed: returned " + str(response.status_code))
+        exit(0)
 
 
 class SearchResult:
