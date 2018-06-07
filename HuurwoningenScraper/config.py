@@ -1,4 +1,5 @@
 import sys, os
+import configparser
 
 class config:
     """Configuration class
@@ -7,16 +8,34 @@ class config:
        Huurwoningen scraping process, for example the minimal hiring price.
     """
 
-    min_price = 0
-    max_price = 800
-    location = "leiden" # Leiden (Netherlands) as it's default
     watch_mode = False
-    app_version = 0.1
-    app_name = "Huurwoningen Web Scraper"
 
     def __init__(self, argv):
+        self.build_default_settings()
+
         if len(argv) > 0:
             self.parse_arguments(argv)
+
+
+    def build_default_settings(self):
+        config = configparser.ConfigParser()
+        if os.path.exists("./settings.ini"):
+            ini = "./settings.ini"
+        else:
+            ini = "./settings.sample.ini"
+
+        config.read(ini) # read the ini file 
+
+        self.min_price = config["Settings"]["MinPrice"]
+        self.max_price = config["Settings"]["MaxPrice"]
+        self.location = config["Settings"]["Location"]
+        self.app_name = config["Default"]["AppName"]
+        self.app_version = config["Default"]["AppVersion"]
+        self.sender = config["Mail"]["From"]
+        self.reciever = config["Mail"]["To"]
+        self.smtp_pw = config["Mail"]["Password"]
+        self.smtp_server = config["Mail"]["Smtp"]
+        self.port = config["Mail"]["Port"]
 
 
     def parse_arguments(self, argv):

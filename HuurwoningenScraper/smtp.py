@@ -5,21 +5,21 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.parser import Parser
 
-def send_mail(result):
+def send_mail(result, config):
     """Sends email with most recent search results"""
 
-    gmail_user = 'from@gmail.com'  
-    gmail_password = 'test12345'
+    gmail_user = config.sender  
+    gmail_password = config.smtp_pw
     body = MIMEText(create_mail_body(result), "html")
 
     msg = MIMEMultipart("alternative")
     msg["From"] = gmail_user  
-    msg["To"] = 'to@gmail.com'
+    msg["To"] = config.reciever
     msg["Subject"] = 'HuurwoningenScraper found a new hiring oppertunity for you!'  
     msg.attach(body)
 
     try:  
-        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        server = smtplib.SMTP_SSL(config.smtp_server, config.port)
         server.ehlo()
         server.login(gmail_user, gmail_password)
         server.sendmail(msg["From"], msg["To"], msg.as_string())

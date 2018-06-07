@@ -23,7 +23,7 @@ def init(config):
         result = SearchResult(soup.find("section", attrs={"id": "first-listing"}))
 
         # TODO: Check if there is a backlog for the chosen min/max values, and compare the last registered result with the scraper result
-        send_mail(result)
+        send_mail(result, config)
 
 
 class SearchResult:
