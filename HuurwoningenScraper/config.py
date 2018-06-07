@@ -92,4 +92,4 @@ class config:
     def get_huurwoningen_url(self, config):
         """Returns the correct Huurwoningen.nl url based on the configuration values"""
 
-        return "https://www.huurwoningen.nl/in/" + {self.location} + "/?min_price=" + {str(self.min_price)} + "&max_price=" + {str(self.max_price)}
+        return "https://www.huurwoningen.nl/in/" + self.location + "/?min_price=" + str(self.min_price) + "&max_price=" + str(self.max_price)
