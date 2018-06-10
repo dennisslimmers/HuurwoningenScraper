@@ -30,6 +30,7 @@ class config:
 
         self.min_price = config["Settings"]["MinPrice"]
         self.max_price = config["Settings"]["MaxPrice"]
+        self.max_results = config["Settings"]["MaxResults"]
         self.location = config["Settings"]["Location"]
         self.app_name = config["Default"]["AppName"]
         self.app_version = config["Default"]["AppVersion"]

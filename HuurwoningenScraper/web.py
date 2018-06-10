@@ -27,7 +27,7 @@ def init(config):
         soup_results = soup.findAll("section", attrs={"class": "listing"})
         
         for i in range (0, len(soup_results)):
-            if i == 5: # TODO: add a MaxResults ini variable? 
+            if i == int(config.max_results): 
                break
 
             results.append(SearchResult(soup_results[i]))
