@@ -43,7 +43,7 @@ def init(config):
             print("HWWS > Starting watch mode, press CTRL + C to terminate")
             
             # start watch mode interval
-            interval = Interval(10, watch_mode, args=[config])
+            interval = Interval(int(config.watch_interval), watch_mode, args=[config])
             interval.start()
 
             while True:

@@ -39,6 +39,7 @@ class config:
         self.smtp_pw = config["Mail"]["Password"]
         self.smtp_server = config["Mail"]["Smtp"]
         self.port = config["Mail"]["Port"]
+        self.watch_interval = config["Settings"]["WatchInterval"]
 
 
     def parse_arguments(self, argv):
