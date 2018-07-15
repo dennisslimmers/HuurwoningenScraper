@@ -10,7 +10,7 @@ def send_mail(results, config):
 
     gmail_user = config.sender  
     gmail_password = config.smtp_pw
-    body = MIMEText(create_mail_body(results), "html")
+    body = MIMEText(''.join(create_mail_body(results)).encode('utf-8').strip(), "html")
 
     msg = MIMEMultipart("alternative")
     msg["From"] = gmail_user  
@@ -19,7 +19,7 @@ def send_mail(results, config):
     msg.attach(body)
 
     try:  
-        server = smtplib.SMTP_SSL(config.smtp_server, config.port)
+        server = smtplib.SMTP_SSL(config.smtp_server, int(config.port))
         server.ehlo()
         server.login(gmail_user, gmail_password)
         server.sendmail(msg["From"], msg["To"], msg.as_string())
@@ -28,7 +28,7 @@ def send_mail(results, config):
         # Email successfully send, print a notification
         print("HWWS > New hiring oppertunities found! An email was send to: " + msg["To"])
     except:  
-        e = sys.exc_info()[0]
+        e = sys.exc_info()[1]
         print(e)
         exit()
 
